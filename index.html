@@ -1,0 +1,439 @@
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArulOfficial</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background: black;
+      color: #cce6ff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 28px;
+      text-shadow: 0 0 15px #7b5cff;
+      margin-top: 20px;
+    }
+    .container {
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* BOX */
+    .glow-box {
+      background: rgba(60, 0, 100, 0.3);
+      border: 2px solid #7b5cff;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px auto;
+      width: 280px;
+      box-shadow: 0 0 20px #4dc3ff;
+      cursor: pointer;
+      transition: 0.25s;
+      color: #cce6ff;
+    }
+    .glow-box:hover {
+      background: rgba(100, 0, 200, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* GAMBAR */
+    .main-img {
+      width: 200px;
+      height: auto;
+      border-radius: 12px;
+      margin: 10px auto;
+      box-shadow: 0 0 20px #4dc3ff;
+      display: block;
+    }
+    .popup-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+    .qris-img {
+      width: 220px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #4dc3ff;
+      margin: 15px auto;
+      display: block;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* BINTANG */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate, moveStars linear infinite;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+    @keyframes moveStars {
+      from { transform: translateY(0px); }
+      to { transform: translateY(100vh); }
+    }
+
+    /* POPUP */
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(15,15,40,0.5);
+      backdrop-filter: blur(4px);
+    }
+    .popup-content {
+      background: rgba(20,0,50,0.9);
+      border: 2px solid #7b5cff;
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      margin: 10% auto;
+      color: #cce6ff;
+      box-shadow: 0 0 25px #4dc3ff;
+      position: relative;
+      z-index: 11;
+    }
+    .close-btn {
+      margin-top: 15px;
+      background: #7b5cff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .close-btn:hover {
+      background: #5b3fd1;
+    }
+
+    /* SPLASH SCREEN */
+    #splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #2b0066, #001f66);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 2.5s;
+    }
+    .splash-content {
+      text-align: center;
+      color: #fff;
+      animation: zoomIn 1.5s ease;
+    }
+    .splash-content h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #6145D8;
+    }
+    .splash-content p {
+      font-size: 20px;
+      color: #aaddff;
+    }
+    @keyframes zoomIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash">
+    <div class="splash-content">
+      <h1>𝐎𝐥𝐚𝐚 𝐖𝐞𝐥𝐥𝐜𝐨𝐦𝐞 𝐓𝐨</h1>
+      <p> 𝐏𝐚𝐲𝐦𝐞𝐧𝐭 & 𝐏𝐫𝐨𝐝𝐮𝐤 𝐀𝐫𝐮𝐥𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥-𝐈𝐃 🕊️</p>
+    </div>
+  </div>
+
+  <!-- Partikel bintang -->
+  <div class="stars" id="stars"></div>
+
+    <!-- LOGO UTAMA -->
+    <img src="https://files.catbox.moe/gqxjqd.jpg" alt="ArulOfficial" class="main-img">
+
+    <!-- QRIS -->
+    <div class="glow-box" onclick="openPopup('popupQris')">📷 QRIS</div>
+
+    <!-- DANA -->
+    <div class="glow-box">
+      DANA: <span id="dana">08383115968</span>
+      <button class="copy-btn" onclick="copyText('083838115968')">Copy</button>
+    </div>
+
+    <p>Atas Nama: <b style="color:#f3f4f6">M/T</b></p>
+
+    <!-- Produk -->
+    <div class="glow-box" onclick="openPopup('popupElminator')">Sc Elminator Invictus<br> Rp10.000</div>
+    <div class="glow-box" onclick="openPopup('popupDread')">Sc Dread Nought<br> Rp15.000</div>
+    <div class="glow-box" onclick="openPopup('popupVallow')">Sc X-Vallow Crash<br> Rp15.000</div>
+    <div class="glow-box" onclick="openPopup('popupZero')">Sc Zero Trace<br> Rp10.000</div>
+    <div class="glow-box" onclick="openPopup('popupNika')">Sc Nika Depay<br> Rp25.000</div>
+    <div class="glow-box" onclick="openPopup('popupNot')">Sc Nocthera<br> Rp15.000</div>
+    <div class="glow-box" onclick="openPopup('popupPanel')">Panel Pterodactyl<br></div>
+    <div class="glow-box" onclick="openPopup('popupProduk')">Produk Lainnya</div>
+  </div>
+
+  <!-- POPUP QRIS -->
+  <div class="popup" id="popupQris">
+    <div class="popup-content">
+      <h2>📷 Scan QRIS</h2>
+      <img class="qris-img" src="https://files.catbox.moe/bx5rwq.jpeg" alt="QRIS Code">
+      <p>Scan QRIS di atas untuk pembayaran.</p>
+      <button class="close-btn" onclick="closePopup('popupQris')">Tutup</button>
+    </div>
+  </div>
+
+  <!-- POPUP ELMINATOR -->
+  <div class="popup" id="popupElminator">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐄𝐋𝐌𝐈𝐍𝐀𝐓𝐎𝐑 𝐈𝐍𝐕𝐈𝐂𝐓𝐔𝐒</h2>
+      <img src="https://files.catbox.moe/c66w6q.jpg" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By ArulOfficial</h3>
+      <p style="color:#d1d5db">
+      𝗥𝗲𝘀𝗲𝗹𝗲𝗿 𝗘𝗹𝗺𝗶𝗻𝗮𝘁𝗼𝗿 𝗜𝗻𝘃𝗶𝗰𝘁𝘂𝘀 <br>
+      𝗥𝗽𝟮𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗣𝗮𝘁𝗻𝗲𝗿 𝗘𝗹𝗺𝗶𝗻𝗮𝘁𝗼𝗿 𝗜𝗻𝘃𝗶𝗰𝘁𝘂𝘀 <br> 
+      𝗥𝗽𝟮𝟱.𝟬𝟬𝟬 <br> <br>
+           
+      𝗢𝘄𝗻𝗲𝗿 𝗘𝗹𝗺𝗶𝗻𝗮𝘁𝗼𝗿 𝗜𝗻𝘃𝗶𝗰𝘁𝘂𝘀 <br>
+      𝗥𝗽𝟯𝟬.𝟬𝟬𝟬 <br> <br>
+            
+𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁<br>𝙵𝚞𝚗𝚌𝚝 𝙽𝚎𝚠 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 <br>𝙱𝚕𝚊𝚗𝚔 𝚄𝚒 <br>𝙱𝚕𝚊𝚗𝚔 𝙷𝚊𝚛𝚍 <br>𝚂𝚝𝚞𝚌𝚔 𝙻𝚘𝚐𝚘 <br>𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜 <br>𝙱𝚞𝚕𝚕𝚍𝚘𝚣𝚎𝚛 <br>𝙵𝚛𝚎𝚎𝚣𝚎 𝙷𝚘𝚖𝚎
+      <button class="close-btn" onclick="closePopup('popupElminator')">Tutup</button>
+    </div>
+  </div>
+
+  <!-- POPUP DREAD -->
+  <div class="popup" id="popupDread">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐃𝐑𝐄𝐀𝐃 𝐍𝐎𝐔𝐆𝐇𝐓</h2>
+      <img src="https://files.catbox.moe/iw6n3h.jpg" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By WizzMods</h3>
+      <p style="color:#d1d5db">
+      𝗥𝗲𝘀𝗲𝗹𝗲𝗿 𝗗𝗿𝗲𝗮𝗱 𝗡𝗼𝘂𝗴𝗵𝘁 <br>
+      𝗥𝗽𝟱𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗢𝘄𝗻𝗲𝗿 𝗗𝗿𝗲𝗮𝗱 𝗡𝗼𝘂𝗴𝗵𝘁 <br>
+      𝗥𝗽𝟳𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗣𝗮𝘁𝗻𝗲𝗿 𝗗𝗿𝗲𝗮𝗱 𝗡𝗼𝘂𝗴𝗵𝘁 <br>  
+      𝗥𝗽𝟭𝟮𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗧𝗮𝗻𝗴𝗮𝗻 𝗞𝗮𝗻𝗮𝗻 𝗗𝗿𝗲𝗮𝗱 𝗡𝗼𝘂𝗴𝗵𝘁 <br>
+      𝗥𝗽𝟭𝟱𝟬.𝟬𝟬𝟬 <br> <br>
+                
+      𝗠𝗼𝗱𝗲𝗿𝗮𝘁𝗼𝗿 𝗗𝗿𝗲𝗮𝗱 𝗡𝗼𝘂𝗴𝗵𝘁 <br>
+      𝗥𝗽𝟭𝟳𝟬.𝟬𝟬𝟬 <br> <br>
+      
+𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁<br>𝙽𝚎𝚠 𝙲𝚘𝚖𝚋𝚘 𝙵𝚞𝚗𝚌𝚝 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 𝙺𝚕𝚒𝚔 <br>𝙱𝚕𝚊𝚗𝚔 𝚄𝚒 <br>𝚂𝚝𝚞𝚌𝚔 𝙻𝚘𝚐𝚘 <br>𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜 <br>𝙱𝚞𝚕𝚕𝚍𝚘𝚣𝚎𝚛 <br>𝙵𝚛𝚎𝚎𝚣𝚎 <br>𝙵𝚛𝚎𝚎𝚣𝚎 𝙶𝚛𝚘𝚞𝚙
+      <button class="close-btn" onclick="closePopup('popupDread')">Tutup</button>
+    </div>
+  </div>
+
+  <!-- POPUP VALLOW -->
+  <div class="popup" id="popupVallow">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐗-𝐕𝐀𝐋𝐋𝐎𝐖 𝐂𝐑𝐀𝐒𝐇</h2>
+      <img src="https://files.catbox.moe/zlkhv0.jpg" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By RillMods</h3>
+      <p style="color:#d1d5db">  
+      𝗥𝗲𝘀𝗲𝗹𝗲𝗿 𝗫-𝗩𝗮𝗹𝗹𝗼𝘄 𝗖𝗿𝗮𝘀𝗵 <br>
+      𝗥𝗽𝟮𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗣𝗮𝘁𝗻𝗲𝗿 𝗫-𝗩𝗮𝗹𝗹𝗼𝘄 𝗖𝗿𝗮𝘀𝗵 <br>
+      𝗥𝗽𝟮𝟱.𝟬𝟬𝟬 <br> <br>
+      
+      𝗢𝘄𝗻𝗲𝗿 𝗫-𝗩𝗮𝗹𝗹𝗼𝘄 𝗖𝗿𝗮𝘀𝗵 <br>  
+      𝗥𝗽𝟯𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗧𝗮𝗻𝗴𝗮𝗻 𝗞𝗮𝗻𝗮𝗻 𝗫-𝗩𝗮𝗹𝗹𝗼𝘄 𝗖𝗿𝗮𝘀𝗵 <br>
+      𝗥𝗽𝟯𝟱.𝟬𝟬𝟬 <br> <br>
+      
+𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁<br>𝙵𝚞𝚗𝚌𝚝 𝙽𝚎𝚠 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 𝙱𝚎𝚝𝚊 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 𝚒𝚘𝚜 + 𝙱𝚎𝚝𝚊 <br>𝚂𝚢𝚊𝚝𝚎𝚖 𝚄𝚒 <br>𝙱𝚞𝚕𝚕𝚍𝚘𝚣𝚎𝚛 𝟻𝙶𝚋 <br>𝙳𝚎𝚕𝚊𝚢 𝙰𝚕𝚕 𝙳𝚎𝚟𝚒𝚌𝚎 <br>𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 𝙵𝚒𝚡 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜𝚒𝚋𝚕𝚎
+      <button class="close-btn" onclick="closePopup('popupVallow')">Tutup</button>
+    </div>
+  </div>
+
+  <!-- POPUP ZERO -->
+  <div class="popup" id="popupZero">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐙𝐄𝐑𝐎 𝐓𝐑𝐀𝐂𝐄</h2>
+      <img src="https://files.catbox.moe/xdwsl2.jpg" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By WizzMods</h3>
+      <p style="color:#d1d5db">
+      𝗥𝗲𝘀𝗲𝗹𝗲𝗿 𝗭𝗲𝗿𝗼 𝗧𝗿𝗮𝗰𝗲 <br>
+      𝗥𝗽𝟮𝟱.𝟬𝟬𝟬 <br> <br>
+      
+𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁<br>𝙰𝚕𝚕 𝙵𝚞𝚗𝚌𝚝 𝙽𝚎𝚠 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 <br>𝙱𝚕𝚊𝚗𝚔 𝚄𝚒 <br>𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜 𝙽𝚎𝚠 <br>𝚂𝚙𝚊𝚖 𝙿𝚊𝚒𝚛𝚒𝚗𝚐 <br>𝙱𝚞𝚐 𝙶𝚛𝚘𝚞𝚙
+      <button class="close-btn" onclick="closePopup('popupZero')">Tutup</button>
+    </div>
+  </div>
+  
+    <!-- POPUP NIKA -->
+  <div class="popup" id="popupNika">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐍𝐈𝐊𝐀</h2>
+      <img src="https://files.catbox.moe/9ec6hz.webp" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By DepayOfficial</h3>
+      <p style="color:#d1d5db">
+      𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁 <br>𝙵𝚞𝚗𝚌𝚝𝚒𝚘𝚗 𝙽𝚎𝚠 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 <br>𝙱𝚕𝚊𝚗𝚔 𝚂𝚙𝚊𝚖 <br>𝙱𝚕𝚊𝚗𝚔 𝙷𝚊𝚛𝚍 𝚄𝚒 <br>𝙲𝚛𝚊𝚜𝚑 𝙸𝚘𝚜 <br>𝙸𝚗𝚟𝚒𝚜𝚒𝚋𝚕𝚎 𝙸𝚘𝚜 <br>𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜 <br>𝙳𝚎𝚕𝚊𝚢 𝙽𝚘 𝙸𝚗𝚟𝚒𝚜 <br>𝙱𝚞𝚐 𝙶𝚛𝚘𝚞𝚙
+      <button class="close-btn" onclick="closePopup('popupNika')">Tutup</button>
+    </div>
+  </div>
+  
+      <!-- POPUP NOCTHERA -->
+  <div class="popup" id="popupNot">
+    <div class="popup-content">
+      <h2>𝐒𝐂𝐑𝐈𝐏𝐓 𝐍𝐎𝐂𝐓𝐇𝐄𝐑𝐀</h2>
+      <img src="https://files.catbox.moe/qq6rm7.jpg" alt="Owner ArulOfficial" class="popup-img">
+      <h3 style="color:#f3f4f6">By WizzMods</h3>
+      <p style="color:#d1d5db">
+      𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗰𝗿𝗶𝗽𝘁 <br>𝙵𝚘𝚛𝚌𝚎𝚕𝚘𝚜𝚎 <br>𝙱𝚕𝚊𝚗𝚔 𝚂𝚙𝚊𝚖 <br>𝚂𝚢𝚜𝚝𝚎𝚖 𝚄𝚒 <br> 𝙳𝚎𝚕𝚊𝚢 𝙷𝚊𝚛𝚍 𝙸𝚗𝚟𝚒𝚜 <br>𝙳𝚎𝚕𝚊𝚢 𝙸𝚗𝚟𝚒𝚜𝚒𝚋𝚕𝚎
+      <button class="close-btn" onclick="closePopup('popupNot')">Tutup</button>
+    </div>
+  </div>
+  
+      <!-- POPUP RESELER PANEL -->
+  <div class="popup" id="popupPanel">
+    <div class="popup-content">
+      <h2>𝐏𝐑𝐎𝐃𝐔𝐊 𝐏𝐀𝐍𝐄𝐋 𝐏𝐓𝐄𝐑𝐎𝐃𝐀𝐂𝐘𝐋</h2>
+      <img src="https://files.catbox.moe/d8yltf.jpg" alt="Owner ArulOfficial" class="popup-img"> <br> <br>
+      𝗥𝗔𝗠 𝟱𝗚𝗕 𝗖𝗣𝗨 𝟭𝟭𝟬℅ <br>
+      𝗥𝗽𝟱.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝟲𝗚𝗕 𝗖𝗣𝗨 𝟭𝟮𝟱% <br>
+      𝗥𝗽𝟲.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝟳𝗚𝗕 𝗖𝗣𝗨 𝟭𝟱𝟬℅ <br>
+      𝗥𝗽𝟳.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝟴𝗚𝗕 𝗖𝗣𝗨 𝟭𝟴𝟬℅ <br>
+      𝗥𝗽𝟴.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝟵𝗚𝗕 𝗖𝗣𝗨 𝟭𝟵𝟬℅  <br>
+      𝗥𝗽𝟵.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝟭𝟬𝗚𝗕 𝗖𝗣𝗨 𝟮𝟬𝟬℅  <br>
+      𝗥𝗽𝟭𝟬.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗔𝗠 𝗨𝗡𝗟𝗜𝗠𝗜𝗧𝗘𝗗 𝗖𝗣𝗨 𝟬℅ <br>
+      𝗥𝗽𝟭𝟮.𝟬𝟬𝟬 <br> <br>
+      
+      𝗥𝗘𝗦𝗘𝗟𝗘𝗥 𝗣𝗔𝗡𝗘𝗟 𝗣𝗘𝗥𝗠𝗔𝗡𝗘𝗡 <br>
+      𝗥𝗽𝟱.𝟬𝟬𝟬 <br> <br>
+      
+      𝗕𝗲𝗻𝗲𝗳𝗶𝘁 𝗦𝗽𝗲𝗸 𝗦𝗲𝗿𝘃𝗲𝗿 𝗣𝗮𝗻𝗲𝗹 <br>𝙰𝚗𝚝𝚒 𝙿𝚎𝚝𝚎 𝙿𝚎𝚝𝚎 <br>𝙰𝚗𝚝𝚒 𝙳𝚎𝚕𝚊𝚢/𝙻𝚎𝚖𝚘𝚝 <br>𝙰𝚗𝚝𝚒 𝙸𝚗𝚝𝚒𝚙/𝚁𝚞𝚜𝚞𝚑 <br>𝙰𝚗𝚝𝚒 𝙲𝚘𝚕𝚘𝚗𝚐 𝚂𝚌 <br>𝙰𝚗𝚝𝚒 𝙳𝚎𝚕𝚎𝚝𝚎/𝙺𝚎𝚞𝚌𝚊𝚕𝚒 𝙱𝚎𝚛𝚜𝚒𝚑 𝙱𝚎𝚛𝚜𝚒𝚑 <br>𝚂𝚙𝚎𝚔 𝚅𝚙𝚜 𝚁𝟷𝟼 𝙲𝟾 <br>𝙺𝚎𝚊𝚖𝚊𝚗𝚊𝚗 𝟷𝟶𝟶% <br>𝙱𝚎𝚛𝚐𝚊𝚛𝚊𝚗𝚜𝚒
+      <button class="close-btn" onclick="closePopup('popupPanel')">Tutup</button>
+    </div>
+  </div>
+  
+      <!-- POPUP PRODUK LAINNYA -->
+  <div class="popup" id="popupProduk">
+    <div class="popup-content">
+      <h2>𝐏𝐑𝐎𝐃𝐔𝐊 𝐋𝐀𝐈𝐍𝐍𝐘𝐀</h2>
+      <img src="https://files.catbox.moe/tu3als.jpg" alt="Owner ArulOfficial" class="popup-img"> <br> <br>
+      
+      𝗠𝗨𝗥𝗕𝗨𝗚 𝗩𝗜𝗔 𝗪𝗔 <br>𝗠𝗨𝗥𝗕𝗨𝗚 𝗩𝗜𝗔 𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠 <br>𝗣𝗔𝗡𝗘𝗟 𝟱𝗚𝗕 - 𝗨𝗡𝗟𝗜𝗠𝗜𝗧𝗘𝗗 <br>𝗡𝗢𝗞𝗢𝗦 𝗔𝗟𝗟 𝗡𝗘𝗚𝗔𝗥𝗔 <br>𝗝𝗔𝗦𝗔 𝗕𝗨𝗚 𝗣𝗘𝗥𝗡𝗢𝗠𝗢𝗥 <br>𝗝𝗔𝗦𝗔 𝗕𝗨𝗚 𝗚𝗕 <br>𝗝𝗔𝗦𝗔 𝗦𝗘𝗪𝗔 𝗕𝗢𝗧 <br>𝗝𝗔𝗦𝗔 𝗥𝗘𝗡𝗔𝗠𝗘 𝗦𝗖 <br>𝗝𝗔𝗦𝗔 𝗙𝗜𝗫 𝗦𝗖 <br>𝗝𝗔𝗦𝗔 𝗕𝗨𝗔𝗧 𝗪𝗘𝗕 𝗣𝗔𝗬𝗠𝗘𝗡𝗧<br>𝗝𝗔𝗦𝗔 𝗣𝗔𝗦𝗔𝗡𝗚 𝗕𝗢𝗧 <br>𝗝𝗔𝗦𝗔 𝗕𝗔𝗡𝗜𝗘𝗥 𝗪𝗔𝗡𝗚𝗦𝗔𝗙 <br>𝗝𝗔𝗦𝗔 𝗨𝗡𝗕𝗔𝗡𝗗 𝗪𝗔𝗡𝗚𝗦𝗔𝗙
+      <button class="close-btn" onclick="closePopup('popupProduk')">Tutup</button>
+    </div>
+  </div>  
+
+
+<!-- 🎵 BUTTON MUSIK -->
+<button id="musicBtn" onclick="toggleMusic()" style="
+  background:#7b5cff;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px #4dc3ff;
+">▶️ Putar Musik</button>
+
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/agcpk9.mp3" type="audio/mpeg">
+</audio>
+
+  <div class="footer">
+    &copy; 𝟐𝟎𝟐𝟓 𝐀𝐫𝐮𝐥𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥-𝐈𝐃 🕊️
+  </div>
+
+  <script>
+    // Bintang
+    for (let i = 0; i < 200; i++) {
+      let star = document.createElement("div");
+      star.className = "star";
+      let size = Math.random() * 3 + "px";
+      star.style.width = size;
+      star.style.height = size;
+      star.style.top = Math.random() * window.innerHeight + "px";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.animationDuration = (Math.random() * 10 + 5) + "s"; // 5–15 detik
+      document.body.appendChild(star);
+    }
+
+    // Copy function
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Nomor " + text + " berhasil dicopy!");
+      });
+    }
+
+    // Popup
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+    
+// Tombol Musik
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+let isPlaying = false;
+
+function toggleMusic() {
+  if (!isPlaying) {
+    music.play();
+    isPlaying = true;
+    musicBtn.innerText = "⏸️ Hentikan Musik";
+  } else {
+    music.pause();
+    isPlaying = false;
+    musicBtn.innerText = "▶️ Putar Musik";
+  }
+}
+  </script>
+</body>
+</html>
